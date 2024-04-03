@@ -237,6 +237,10 @@ impl<'a> NodeIdentifier<'a> {
         })
     }
 
+    pub fn ip(&self) -> Option<&IpAddr> {
+        self.name.ip()
+    }
+
     /// values containing `:` or `[]` characters need to be quoted
     fn display_needs_quote(&self) -> bool {
         self.port.is_some() || matches!(self.name, NodeName::Ip(IpAddr::V6(_)))
@@ -280,6 +284,18 @@ fn test_parse_node_identifier() {
         NodeIdentifier::parse("unknown:99999").unwrap_err(),
         RfcError::InvalidPort
     ));
+}
+
+#[test]
+fn test_node_identifier_ip() {
+    assert_eq!(
+        Some(&IpAddr::from([192, 0, 2, 42])),
+        NodeIdentifier::parse("192.0.2.42:31337").unwrap().ip()
+    );
+    assert_eq!(
+        Some(&IpAddr::from([0x2001, 0xdb8, 0, 0, 0, 0, 0, 0x45])),
+        NodeIdentifier::parse("[2001:db8::45]:31337").unwrap().ip()
+    );
 }
 
 #[test]
@@ -347,6 +363,14 @@ impl<'a> NodeName<'a> {
                 .map(IpAddr::V4)
                 .map(NodeName::Ip)
                 .map_err(|_| RfcError::InvalidIdentifier),
+        }
+    }
+
+    pub fn ip(&self) -> Option<&IpAddr> {
+        if let NodeName::Ip(ip) = self {
+            Some(ip)
+        } else {
+            None
         }
     }
 }
