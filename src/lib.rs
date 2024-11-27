@@ -50,7 +50,7 @@ impl Display for RfcError {
 impl Error for RfcError {}
 
 /// Parse an rfc7239 header value into a list of forwarded nodes
-pub fn parse(header_value: &str) -> impl Iterator<Item = Result<Forwarded, RfcError>> {
+pub fn parse(header_value: &str) -> impl DoubleEndedIterator<Item = Result<Forwarded, RfcError>> {
     header_value.split(',').map(str::trim).map(Forwarded::parse)
 }
 

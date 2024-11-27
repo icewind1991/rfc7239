@@ -1,0 +1,107 @@
+{
+  "nodes": {
+    "crane": {
+      "locked": {
+        "lastModified": 1730060262,
+        "narHash": "sha256-RMgSVkZ9H03sxC+Vh4jxtLTCzSjPq18UWpiM0gq6shQ=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "498d9f122c413ee1154e8131ace5a35a80d8fa76",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "flakelight": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732697024,
+        "narHash": "sha256-GcLauDQQI4xO4vy3e2QxPneR86FsJ1ubAbFDlTyEZ9s=",
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "rev": "1af817b5987e78b7a260dff6d62793716b98d794",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "type": "github"
+      }
+    },
+    "mill-scale": {
+      "inputs": {
+        "crane": "crane",
+        "flakelight": [
+          "flakelight"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1732306573,
+        "narHash": "sha256-wE12kIIE0qb9V9y0JiVm5RsRrMNX+KeeMwkzwefdHhY=",
+        "owner": "icewind1991",
+        "repo": "mill-scale",
+        "rev": "8b4cbf174a9728d7e58bbfde5b5a6685dcbf1015",
+        "type": "github"
+      },
+      "original": {
+        "owner": "icewind1991",
+        "repo": "mill-scale",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1732632634,
+        "narHash": "sha256-+G7n/ZD635aN0sEXQLynU7pWMd3PKDM7yBIXvYmjABQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6f6076c37180ea3a916f84928cf3a714c5207a30",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-24.05",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flakelight": "flakelight",
+        "mill-scale": "mill-scale",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "mill-scale",
+          "flakelight",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731897198,
+        "narHash": "sha256-Ou7vLETSKwmE/HRQz4cImXXJBr/k9gp4J4z/PF8LzTE=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "0be641045af6d8666c11c2c40e45ffc9667839b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
