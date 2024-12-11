@@ -132,7 +132,7 @@ impl<'a> Forwarded<'a> {
     }
 }
 
-impl<'a> Display for Forwarded<'a> {
+impl Display for Forwarded<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         let mut needs_delim = false;
         if let Some(ident) = &self.forwarded_for {
@@ -265,7 +265,7 @@ impl<'a> NodeIdentifier<'a> {
     }
 }
 
-impl<'a> Display for NodeIdentifier<'a> {
+impl Display for NodeIdentifier<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self.port {
             Some(port) => write!(f, "{}:{}", self.name, port),
@@ -393,7 +393,7 @@ impl<'a> NodeName<'a> {
     }
 }
 
-impl<'a> Display for NodeName<'a> {
+impl Display for NodeName<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self {
             NodeName::Ip(IpAddr::V4(ip)) => write!(f, "{}", ip),
