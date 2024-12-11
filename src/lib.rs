@@ -1,10 +1,11 @@
+#![no_std]
 //! Parser for [rfc7239] formatted `Forwarded` headers.
 //!
 //! ## Usage
 //!
 //! ```
 //! use rfc7239::parse;
-//! # use std::error::Error;
+//! # use core::error::Error;
 //!
 //! # fn main() -> Result<(), Box<dyn Error>> {
 //! // get the header value from your favorite http server library
@@ -21,10 +22,16 @@
 //! ```
 //!
 //! [rfc7239]: https://tools.ietf.org/html/rfc7239
-use std::error::Error;
-use std::fmt::{Debug, Display, Formatter};
-use std::net::IpAddr;
-use std::str::FromStr;
+
+#[cfg(test)]
+extern crate std;
+#[cfg(test)]
+use std::{format, vec, vec::Vec};
+
+use core::error::Error;
+use core::fmt::{Debug, Display, Formatter};
+use core::net::IpAddr;
+use core::str::FromStr;
 use uncased::UncasedStr;
 
 #[derive(Debug)]
@@ -36,7 +43,7 @@ pub enum RfcError {
 }
 
 impl Display for RfcError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         let str = match self {
             RfcError::InvalidIdentifier => "Invalid node identifier",
             RfcError::InvalidPort => "Invalid node port",
@@ -115,7 +122,7 @@ impl<'a> Forwarded<'a> {
 }
 
 impl<'a> Display for Forwarded<'a> {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         let mut needs_delim = false;
         if let Some(ident) = &self.forwarded_for {
             if ident.display_needs_quote() {
@@ -248,7 +255,7 @@ impl<'a> NodeIdentifier<'a> {
 }
 
 impl<'a> Display for NodeIdentifier<'a> {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self.port {
             Some(port) => write!(f, "{}:{}", self.name, port),
             None => write!(f, "{}", self.name),
@@ -376,7 +383,7 @@ impl<'a> NodeName<'a> {
 }
 
 impl<'a> Display for NodeName<'a> {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match self {
             NodeName::Ip(IpAddr::V4(ip)) => write!(f, "{}", ip),
             NodeName::Ip(IpAddr::V6(ip)) => write!(f, "[{}]", ip),
