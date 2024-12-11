@@ -18,4 +18,10 @@ for node_result in parse(header_value) {
 }
 ```
 
+## `no_std`
+
+This crate can be used in a `no_std` environment by disabling the default `std` feature.
+
+The only impact disabling this feature has is using `core::error::Error` and `core::net::IpAddr` instead of the `std` variants and increasing the msrv to 1.81.
+
 [rfc7239]: https://tools.ietf.org/html/rfc7239

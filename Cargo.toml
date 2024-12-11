@@ -11,3 +11,7 @@ rust-version = "1.56.1"
 
 [dependencies]
 uncased = "0.9.10"
+
+[features]
+std = []
+default = ["std"]

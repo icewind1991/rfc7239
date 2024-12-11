@@ -1,4 +1,5 @@
-#![no_std]
+#![cfg_attr(not(feature = "std"), no_std)]
+
 //! Parser for [rfc7239] formatted `Forwarded` headers.
 //!
 //! ## Usage
@@ -23,15 +24,25 @@
 //!
 //! [rfc7239]: https://tools.ietf.org/html/rfc7239
 
-#[cfg(test)]
+#[cfg(all(test, not(feature = "std")))]
 extern crate std;
-#[cfg(test)]
+#[cfg(all(test, not(feature = "std")))]
 use std::{format, vec, vec::Vec};
 
-use core::error::Error;
-use core::fmt::{Debug, Display, Formatter};
-use core::net::IpAddr;
-use core::str::FromStr;
+#[cfg(not(feature = "std"))]
+use core::{
+    error::Error,
+    fmt::{Debug, Display, Formatter},
+    net::IpAddr,
+    str::FromStr,
+};
+#[cfg(feature = "std")]
+use std::{
+    error::Error,
+    fmt::{Debug, Display, Formatter},
+    net::IpAddr,
+    str::FromStr,
+};
 use uncased::UncasedStr;
 
 #[derive(Debug)]
